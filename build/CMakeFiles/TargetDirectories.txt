@@ -1,0 +1,3 @@
+/home/mx3/Code/traffic_analyser/build/CMakeFiles/traffic_analyser.dir
+/home/mx3/Code/traffic_analyser/build/CMakeFiles/edit_cache.dir
+/home/mx3/Code/traffic_analyser/build/CMakeFiles/rebuild_cache.dir

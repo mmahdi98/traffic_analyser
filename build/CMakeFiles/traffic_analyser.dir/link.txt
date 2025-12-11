@@ -1,0 +1,1 @@
+/usr/bin/cc -Wl,--dependency-file=CMakeFiles/traffic_analyser.dir/link.d CMakeFiles/traffic_analyser.dir/src/main.c.o -o traffic_analyser  /usr/lib/x86_64-linux-gnu/libpcap.so
