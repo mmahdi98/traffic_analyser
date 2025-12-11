@@ -1,0 +1,40 @@
+# Prerequisites
+*.d
+*.o
+*.obj
+*.test
+
+# --- CMake Specifics ---
+# Ignore the build directory (standard out-of-source build folder)
+build/
+build_debug/
+build_release/
+bin/
+lib/
+
+# Ignore CMake generated files (in case of accidental in-source builds)
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+compile_commands.json
+
+# --- Binary/Executable Artifacts ---
+# Generated Executables (add your specific executable names if generated in root)
+*.exe
+*.out
+*.app
+
+# Shared and Static Libraries
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# --- IDE & Editor Specifics (Optional but recommended) ---
+.vscode/
+.idea/
+*.swp
+.DS_Store
