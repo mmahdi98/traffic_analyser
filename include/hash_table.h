@@ -2,6 +2,8 @@
 #define HASH_TABLE_H
 #include <stdio.h>
 #include "jhash.h"
+#define HASH_TABLE_SIZE 65536 // 2^16 buckets for efficient distribution
+
 typedef struct {
     uint32_t dst_ip;	// Destination IP address (in network byte order)
     uint32_t src_ip;	// Destination IP address (in network byte order)
