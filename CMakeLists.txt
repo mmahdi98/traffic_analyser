@@ -3,7 +3,11 @@ project(TrafficAnalyser C)
 
 include_directories(include)
 
-set(SOURCES src/main.c)
+set(SOURCES
+    src/main.c
+    src/traffic_table.c
+    src/sniffer.c
+)
 
 add_executable(traffic_analyser ${SOURCES})
 

@@ -2,8 +2,10 @@
 #ifndef JHASH_H
 #define JHASH_H
 
-// this implementation of jhash is copied 
-// from https://github.com/torvalds/linux/blob/master/include/linux/jhash.h
+/* 
+	this implementation of jhash is copied 
+ 	from https://github.com/torvalds/linux/blob/master/include/linux/jhash.h
+*/
 
 #include <stdint.h>
 #define JHASH_INITVAL		0xdeadbeef
