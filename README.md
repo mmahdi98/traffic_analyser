@@ -28,7 +28,7 @@ A lightweight, C-based network traffic analysis tool that captures IPv4 packets 
 └── tests
 ├── CMakeLists.txt    # Test build configuration
 └── test_hash.c       # Unit tests
-
+```
 ## 🛠️ Prerequisites
 
 Before building the project, ensure you have the following installed on your Linux system:
@@ -69,16 +69,16 @@ sudo ./traffic_analyser eth0 30
 ### Output Example
 After the duration expires or you press `Ctrl+C`, the application produces a report:
 
-text
+```text
 Starting traffic analysis on eth0 for 30 seconds...
 
---- Traffic Report ---
+--------------------------- Traffic Report ----------------------------
 Src IP           Dst IP           Proto  Count      Total Vol                                                       
 -----------------------------------------------------------------------
 192.168.1.105    142.250.180.14   TCP    152        142.5KB
 192.168.1.105    8.8.8.8          UDP    4          256B
 10.0.0.5         10.0.0.1         TCP    1052       1.2MB
-
+```
 ## 🧪 Testing
 Testing is not fully implemented yet.
 

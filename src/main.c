@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    printf("\n--- Traffic Report ---\n");
+    printf("\n--------------------------- Traffic Report ----------------------------\n");
     traffic_table_print_report(table);
     traffic_table_destroy(table);
     return EXIT_SUCCESS;
