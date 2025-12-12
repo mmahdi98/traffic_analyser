@@ -79,6 +79,12 @@ int sniffer_start(const char *interface_name, TrafficTable *table)
         fprintf(stderr, "PCAP Error: %s\n", errbuf);
         return -1;
     }
+    
+    if (pcap_setdirection(g_pcap_handle, PCAP_D_IN) < 0)
+    {
+        fprintf(stderr, "Error setting capture direction: %s\n", pcap_geterr(g_pcap_handle));
+        return -1;
+    }
 
     struct bpf_program fp;
     const char *filter_exp = "ip and (tcp or udp)";
