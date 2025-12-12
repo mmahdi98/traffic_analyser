@@ -41,17 +41,16 @@ static int interface_exists(const char *interface_name, char *errbuf)
 {
     pcap_if_t *all_devs = NULL;
     
-    if (pcap_findalldevs(&all_devs, errbuf) == -1) {
+    if (pcap_findalldevs(&all_devs, errbuf) == -1)
         return -1;  // Error occurred
-    }
     
     int found = 0;
-    for (pcap_if_t *dev = all_devs; dev != NULL; dev = dev->next) {
-        if (strcmp(dev->name, interface_name) == 0) {
+    for (pcap_if_t *dev = all_devs; dev != NULL; dev = dev->next)
+        if (strcmp(dev->name, interface_name) == 0) 
+        {
             found = 1;
             break;
         }
-    }
     
     pcap_freealldevs(all_devs);
     return found;
@@ -97,7 +96,5 @@ int sniffer_start(const char *interface_name, TrafficTable *table)
 void sniffer_stop(void)
 {
     if (g_pcap_handle)
-    {
         pcap_breakloop(g_pcap_handle);
-    }
 }

@@ -49,9 +49,8 @@ int main(int argc, char *argv[])
 	snprintf(iface, 65, "%s", argv[1]); //64 seems to be enough for that
 
     int duration;
-	if (parse_duration(argv[2], &duration) != 0) {
+	if (parse_duration(argv[2], &duration) != 0)
 		return EXIT_FAILURE;  // error is already printed in function
-	}
 
     TrafficTable *table = traffic_table_create();
 

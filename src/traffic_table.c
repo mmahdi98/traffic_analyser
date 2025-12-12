@@ -49,10 +49,8 @@ void traffic_table_update(TrafficTable *table,
     key.dst_ip = dst_ip;
     key.protocol = protocol;
     uint32_t idx = calculate_hash(&key) % TABLE_SIZE;
-    TrafficEntry *entry = table->buckets[idx];
-
-    while (entry) 
-    {
+    
+    for (TrafficEntry *entry = table->buckets[idx]; entry; entry = entry->next)
         if (entry->key.src_ip == key.src_ip && 
             entry->key.dst_ip == key.dst_ip && 
             entry->key.protocol == key.protocol) 
@@ -61,9 +59,6 @@ void traffic_table_update(TrafficTable *table,
             entry->total_bytes += packet_len;
             return; // TABLE HIT
         }
-
-        entry = entry->next;
-    }
 
     TrafficEntry *new_entry = malloc(sizeof(TrafficEntry)); // TABLE MISS
     if (!new_entry)
@@ -78,27 +73,22 @@ void traffic_table_update(TrafficTable *table,
     table->buckets[idx] = new_entry;
 }
 
-static void ip_to_str(uint32_t ip, char *buf)
+static char *ip_to_str(uint32_t ip, char *buf)
 {
     struct in_addr addr = { .s_addr = ip };
     inet_ntop(AF_INET, &addr, buf, INET_ADDRSTRLEN);
+    return buf;
 }
 
 static char *format_volume(char *buffer, size_t size, uint64_t bytes) {
     double kb = 1024.0;
     double mb = 1024.0 * 1024.0;
     if (bytes >= mb) 
-    {
         snprintf(buffer, size, "%luB(%.1fMB)", bytes, (double)bytes / mb);
-    } 
     else if (bytes >= kb) 
-    {
         snprintf(buffer, size, "%luB(%.1fKB)", bytes, (double)bytes / kb);
-    } 
     else 
-    {
         snprintf(buffer, size, "%luB", bytes);
-    }
     return buffer;
 }
 
@@ -109,22 +99,14 @@ void traffic_table_print_report(const TrafficTable *table)
     char src[INET_ADDRSTRLEN], dst[INET_ADDRSTRLEN]; // buffer for src_ip, dst_ip strings
     char vol_str[64]; // buffer for formatted size string
     for (int i = 0; i < TABLE_SIZE; i++)
-    {
-        TrafficEntry *entry = table->buckets[i];
-        while (entry) 
-        {
-            ip_to_str(entry->key.src_ip, src);
-            ip_to_str(entry->key.dst_ip, dst);
+        for (TrafficEntry *entry = table->buckets[i]; entry; entry = entry->next)
             printf("%-16s %-16s %-6s %-10lu %s\n", 
-                src, 
-                dst, 
+                ip_to_str(entry->key.src_ip, src), 
+                ip_to_str(entry->key.dst_ip, dst), 
                 (entry->key.protocol == 6) ? "TCP" : "UDP",
                 entry->packet_count,
                 format_volume(vol_str, sizeof(vol_str), entry->total_bytes)
             ); // printing the entries of the table
-            entry = entry->next;
-        }
-    }
 }
 
 void traffic_table_destroy(TrafficTable *table) 
