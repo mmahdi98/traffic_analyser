@@ -103,6 +103,18 @@ The core data structure is defined in `traffic_table.c`. It uses a fixed-size ha
 2.  **Callback:** For every packet passing the filter, `packet_handler` extracts IP headers.
 3.  **Update:** `traffic_table_update` is called to atomically increment the packet count and byte volume for the specific flow in the hash table.
 
+## ❓ Troubleshooting
+
+-   **"Error: Interface 'xyz' not found":**
+    Ensure the interface name is correct by running `ip link` or `ifconfig`. The name must match exactly (case-sensitive).
+
+-   **"PCAP Error: ...":**
+    If you see permission errors, ensure you are running the executable with `sudo`. Promiscuous mode requires root privileges.
+
+-   **"Error: Duration must be a positive integer":**
+    The duration argument accepts only whole numbers (seconds). Decimals or letters are not allowed.
+
+
 ## 📜 License
 
 MIT License.
