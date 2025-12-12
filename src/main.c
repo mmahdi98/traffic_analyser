@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <string.h>
+#include <net/if.h>
 
 void handle_signal(int sig)
 {
@@ -45,8 +46,8 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     }
 
-    char iface[65];
-	snprintf(iface, 65, "%s", argv[1]); //64 seems to be enough for that
+    char iface[IF_NAMESIZE];
+	snprintf(iface, IF_NAMESIZE, "%s", argv[1]); //IF_NAMESIZE usually 16
 
     int duration;
 	if (parse_duration(argv[2], &duration) != 0)

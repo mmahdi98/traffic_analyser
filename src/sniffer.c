@@ -2,6 +2,7 @@
 #include <pcap.h>
 #include <netinet/if_ether.h>
 #include <netinet/ip.h>
+#include <netinet/in.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -26,7 +27,7 @@ static void packet_handler(unsigned char *user_data, const struct pcap_pkthdr *h
     if (ip_hdr_len < 20 || header->caplen < ip_offset + ip_hdr_len) return;  // invalid or truncated ip header
 
     uint8_t protocol = ip_header->ip_p;
-    if (protocol != 6 && protocol != 17) return; // not tcp or udp,  probably problem with pcap filter
+    if (protocol != IPPROTO_TCP && protocol != IPPROTO_UDP) return; // not tcp or udp,  probably problem with pcap filter
 
     traffic_table_update(
         table, 
