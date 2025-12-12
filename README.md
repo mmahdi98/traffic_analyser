@@ -33,23 +33,21 @@ A lightweight, C-based network traffic analysis tool that captures IPv4 packets 
 
 Before building the project, ensure you have the following installed on your Linux system:
 
-1.  **C Compiler:** GCC or Clang.
+1.  **C Compiler:** GCC.
 2.  **CMake:** Version 3.10 or higher.
 3.  **libpcap Development Libraries:**
 *   **Debian/Ubuntu:** `sudo apt-get install libpcap-dev`
-*   **RHEL/CentOS:** `sudo yum install libpcap-devel`
-*   **Arch Linux:** `sudo pacman -S libpcap`
 
 ## 🔨 Building the Project
 
 Use the standard CMake workflow to build the application:
 
-bash
+```bash
 mkdir build
 cd build
 cmake ..
 make -j16
-
+```
 ## 💻 Usage
 
 To run the analyser, you must provide the **network interface** name and the **duration** (in seconds) for the capture.
@@ -57,15 +55,15 @@ To run the analyser, you must provide the **network interface** name and the **d
 > **Note:** Root privileges (`sudo`) are required to capture packets in promiscuous mode.
 
 ### Syntax
-bash
+```bash
 sudo ./traffic_analyser <interface> <duration>
-
+```
 ### Example
 Capture traffic on interface `eth0` for `30` seconds:
 
-bash
+```bash
 sudo ./traffic_analyser eth0 30
-
+```
 ### Output Example
 After the duration expires or you press `Ctrl+C`, the application produces a report:
 
@@ -80,6 +78,7 @@ Src IP           Dst IP           Proto  Count      Total Vol
 10.0.0.5         10.0.0.1         TCP    1052       1.2MB
 ```
 ## 🧪 Testing
+
 Testing is not fully implemented yet.
 
 The project is configured with CTest (`enable_testing()`). To run the included unit tests:
@@ -87,12 +86,12 @@ The project is configured with CTest (`enable_testing()`). To run the included u
 1.  Build the project first (see "Building the Project" above).
 2.  Run the tests from the `build` directory:
 
-bash
+```bash
 cd build
 make test
 # OR for more verbose output:
 ctest -V
-
+```
 ## 🧠 Technical Details
 
 ### Traffic Table (Hash Map)
