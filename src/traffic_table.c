@@ -49,7 +49,7 @@ void traffic_table_update(TrafficTable *table,
     key.dst_ip = dst_ip;
     key.protocol = protocol;
     uint32_t idx = calculate_hash(&key) % TABLE_SIZE;
-    
+
     for (TrafficEntry *entry = table->buckets[idx]; entry; entry = entry->next)
         if (entry->key.src_ip == key.src_ip && 
             entry->key.dst_ip == key.dst_ip && 
@@ -82,8 +82,11 @@ static char *ip_to_str(uint32_t ip, char *buf)
 
 static char *format_volume(char *buffer, size_t size, uint64_t bytes) {
     double kb = 1024.0;
-    double mb = 1024.0 * 1024.0;
-    if (bytes >= mb) 
+    double mb = kb * 1024.0;
+    double gb = mb * 1024.0;
+    if (bytes >= gb)
+        snprintf(buffer, size, "%luB(%.1fGB)", bytes, (double)bytes / gb);
+    else if (bytes >= mb) 
         snprintf(buffer, size, "%luB(%.1fMB)", bytes, (double)bytes / mb);
     else if (bytes >= kb) 
         snprintf(buffer, size, "%luB(%.1fKB)", bytes, (double)bytes / kb);
